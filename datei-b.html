@@ -1,0 +1,159 @@
+<style>
+
+/* Kleine Optik-Anpassungen für sehr kleine Bildschirme */
+@media (max-width:360px){
+  body{padding:10px}
+  :root{--gap:8px; --radius:8px}
+}
+
+/* html, body nicht nötig*/
+html,body{height:100%;}
+
+body{
+  margin:0;
+/*  padding:0px; */
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  background:var(--bg);
+  color:#111;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+
+
+:root{
+   --border:2px; /* ??? */
+   --gap:2px; /*zwischen Zellen*/
+   --radius:10px;/*Ecken Rahmen*/
+   --max-width:900px;
+   --bg:#fafafa;
+   --frame-bg:#efefef;
+}
+
+
+/* Grid: 2 Spalten x 2 Reihen */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:var(--gap);
+/*  background:lightgray; */ /*Hintergrund Rahmen*/
+  padding: 1px;/*Abstand Zellen vom Rand*/
+}
+
+  /* Frame: Höhe = 2/3 der Breite -> aspect-ratio 3/2 (Breite: 3, Höhe:2) */
+.frame{
+  background:var(--frame-bg);
+  border-radius:var(--radius);
+  overflow:hidden;
+  position:relative;
+  /* moderne Browser */
+  aspect-ratio: 3 / 2; /* width / height -> Höhe = 2/3 der Breite */
+}
+
+/* Fallback für ältere Browser: Erstellt einen Block mit 66.6667% Höhe der Breite */
+.frame::before{
+  content: "";
+  display:block;
+  padding-top:66.6667%; /* 2/3 * 100% */
+}
+
+/* Inneres Layer, absolut positioniert, füllt das Frame */
+.frame > .content{
+  position:absolute;
+  inset:0; /* top:0; right:0; bottom:0; left:0 */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+}
+
+/* Bild unverzerrt vollständig anzeigen: */
+.frame img{
+  width:100%;
+  height:100%;
+  object-fit:cover; /* contain Bild ganz sichtbar */
+  object-position:center;
+  display:block;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+  /* Spezielle Klasse für scrollbaren Text */
+.scroll-text {
+  overflow-y: auto;       /* Erzeugt vertikalen Scrollbalken bei Bedarf */
+  align-items: flex-start !important; /* Text beginnt oben, nicht in der Mitte */
+  justify-content: flex-start !important; /* Links-bündig (optional) */
+  text-align: left;       /* Text linksbündig lesen sich besser */
+  padding: 8px;          /* Innenabstand, damit Text nicht am Rand klebt */
+  box-sizing: border-box; /* Padding wird in die Breite eingerechnet */
+}
+
+/* Optional: Hübscherer Scrollbalken (wirkt auf Chrome/Safari/Edge) */
+.scroll-text::-webkit-scrollbar {
+  width: 6px;
+}
+.scroll-text::-webkit-scrollbar-track {
+  background: darkgrey;
+}
+.scroll-text::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+/* Ende Scrollbalken*/
+
+</style>
+
+
+<h2 style="color: #007bff;">Teil B (Importiert)</h2>
+<p>
+    Dieser Text kommt aus einer <strong>völlig anderen Datei</strong>.
+    Er wurde per JavaScript an diese Stelle geladen.
+</p>
+
+<div class="grid">
+  <div class="frame">
+    <div class="content">
+      <!-- Ersetze "dummy.jpg" durch dein Foto -->
+      <img src="dummy.jpg" alt="Foto 1">
+    </div>
+  </div>
+
+  <div class="frame">
+    <div class="content scroll-text">
+      Dies ist der Text neben dem Bild. Wäre gut, wenn das funktionieren würde 😃. Was passiert, wenn der Text nicht mehr in den Rahmen passt. Wird er abgeschnitten? Gibt rs einen Scrollbalken?
+    </div>
+  </div>
+
+  <div class="frame">
+    <div class="content scroll-text">
+<!--      <h3 style="margin-top:0">Über das Bild</h3> -->
+      
+        Dies ist der Text neben dem Bild. Da wir nun die Klasse "scroll-text" hinzugefügt haben,
+        passiert Folgendes: Wenn der Text zu lang für den Rahmen ist (so wie dieser hier, den ich
+        extra lang mache), wird er nicht mehr abgeschnitten.
+      
+      
+        Stattdessen erscheint am rechten Rand ein Scrollbalken. Das ist besonders wichtig auf
+        Handys, wo der Platz begrenzt ist. Du kannst hier so viel schreiben, wie du willst.
+        Der Text bleibt im Rahmen!
+      
+    </div>
+  </div>
+
+  <div class="frame">
+    <div class="content">
+      <img src="dummy.jpg" alt="Foto 4">
+    </div>
+  </div>
+</div>
+
+
+
+<ul>
+    <li>Punkt 1</li>
+    <li>Punkt 2</li>
+    <li>Punkt 3</li>
+</ul>
+<p>
+    Da er nun Teil der Hauptseite ist, erbt er auch deren CSS-Styles (Schriftart, Box-Design).
+</p>
